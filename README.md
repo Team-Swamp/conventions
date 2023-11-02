@@ -2,7 +2,7 @@
 
 ### **Namespaces**
 
-The namespace name is written in UpperCamelCase.
+The namespace name is written in PascalCasing.
 Every class needs to be inside of a namespace.
 ```cs
 namespace ExampleNamespace
@@ -18,7 +18,7 @@ namespace ExampleNamespace
 
 ### **Classes**
 
-The Class name is written in UpperCamelCase.
+The Class name is written in PascalCasing.
 If the function GetComponent is used to get a component from this gameObject you use RequireComponent above the class.
 ```cs
 [RequireComponent(typeof(ExampleComponent))]
@@ -32,7 +32,7 @@ public class ExampleScript : MonoBehaviour
 
 ### **Functions**
 
-The Function name is written in UpperCamelCase.
+The Function name is written in PascalCasing.
 ```cs
 private void ExampleFunction()
 {
@@ -62,7 +62,7 @@ public void ExampleFunction() => SecondExampleFunction();
 
 ### **Variables**
 
-**Private variable** names always start with an '_' (Even when serialized) after which it is written in lowerCamelCase.
+**Private variable** names always start with an '_' (Even when serialized) after which it is written in camelCasing.
 ```cs
 private Object _variableExample;
 
@@ -70,12 +70,12 @@ private Object _variableExample;
 private Object _secondVariableExample;
 ```
 
-**Public variable** names are written in lowerCamelCase.
+**Public variable** names are written in camelCasing.
 ```cs
 public Object variableExample;
 ```
 
-**Readonly variable** names are written the same as public variables so in lowerCamelCase.
+**Readonly variable** names are written the same as public variables so in camelCasing.
 ```cs
 public readonly Object variableExample;
 ```
@@ -85,17 +85,17 @@ public readonly Object variableExample;
 public const int EXAMPLE_CONSTANT_VALUE;
 ```
 
-**Internal variable** names always start with 'i_' after which it is written in lowerCamelCase.
+**Internal variable** names always start with 'i_' after which it is written in camelCasing.
 ```cs
 internal int i_variableExample;
 ```
 
-**Protected variable** names always start with 'p_' after which it is written in lowerCamelCase.
+**Protected variable** names always start with 'p_' after which it is written in camelCasing.
 ```cs
 protected int p_variableExample;
 ```
 
-**Temporary variables** inside of an function always need to be written out and are written in lowerCamelCase.
+**Temporary variables** inside of an function always need to be written out and are written in camelCasing.
 ```cs
 private void ExampleFunction()
 {
@@ -113,7 +113,7 @@ private void ExampleFunction()
 }
 ```
 
-**Propertie** names are written in UpperCamelCase.
+**Property** names are written in PascalCasing.
 ```cs
 public int ExampleInteger
 {
@@ -158,7 +158,7 @@ else
 
 ### **Structs**
 
-The struct name is written in UpperCamelCase and everything inside the struct follows the usual code conventions.
+The struct name is written in PascalCasing and everything inside the struct follows the usual code conventions.
 ```cs
 public struct ExampleStruct
 {
@@ -171,7 +171,7 @@ public struct ExampleStruct
 
 ### **Enums**
 
-The enum name is written in UpperCamelCase while the constants are in FULL_CAPITALS.
+The enum name is written in PascalCasing while the constants are in FULL_CAPITALS.
 ```cs
 enum ExampleEnum
 {

@@ -1,7 +1,23 @@
-# Code conventions
+# unity-code-conventie
 
-### **Namespaces**
+Team-swamp's Unity & C# code conventie. Everything is typed in the English languegue.
 
+Always try to make your code less [coupled](https://en.wikipedia.org/wiki/Coupling_(computer_programming)) / dependant on other code, and try to adhere to [SRP (Single Responsability Princple)](https://en.wikipedia.org/wiki/Single-responsibility_principle) doing so will prevent scripts from breaking entire systems if something breaks. 
+Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself#:~:text=%22Don't%20repeat%20yourself%22,data%20normalization%20to%20avoid%20redundancy.)
+
+- [Namespaces](#namespaces)
+- [Classes](#classes)
+- [Functions](#functions)
+- [Variables](#variables)
+- [Structs](#structs)
+- [Enums](#enums)
+- [If statement](#if-statements)
+    - [Ternary operator](#ternary-operator)
+- [Loops](#loops)
+- [Scriptable object](#scriptable-object)
+
+------
+### Namespaces
 The namespace name is written in PascalCasing.
 Every class needs to be inside of a namespace.
 ```cs
@@ -13,24 +29,66 @@ namespace ExampleNamespace
     }
 }
 ```
+```cs
+namespace ExampleNamespace.ScriptableObjects
+{
+    public class ExampleScriptableObject : ScriptableObject
+    {
+
+    }
+}
+```
 
 ------
-
-### **Classes**
-
+### Classes
 The Class name is written in PascalCasing.
-If the function GetComponent is used to get a component from this gameObject you use RequireComponent above the class.
+If the function GetComponent is used to get a component from this gameObject you use RequireComponent above the class. I suggest using the 'sealed' and 'abstract' keywords to minmize confusion.
 ```cs
 [RequireComponent(typeof(ExampleComponent))]
-public class ExampleScript : MonoBehaviour
+public sealed class ExampleScript : MonoBehaviour
+{
+
+}
+
+public abstract class BaseExampleScript : MonoBehaviour
+{
+
+}
+
+public class NonBaseExampleScript : BaseExampleScript
 {
 
 }
 ```
 
-------
+Class members should be grouped into sections:
 
-### **Functions**
+- Constant Fields
+- Static Fields
+- Fields
+- Constructors
+- Properties
+- Events / Delegates
+- LifeCycle Methods (Awake, OnEnable, OnDisable, OnDestroy, IEnumerator)
+- Public Methods
+- Protected Methodes
+- Private Methods
+- Nested types
+
+Within each of these groups order by access:
+- public
+- serializedFields
+- internal
+- protected
+- private
+
+------
+### Functions
+All functions and events perform some form of action, whether its getting info, calculating data, or causing something to explode. Therefore, all functions should **start with verbs**. They should be worded in the present tense whenever possible. They should also have some context as to what they are doing.
+
+When writing a function that does not change the state of or modify any object and is purely for getting information, state, or computing a yes/no value, it should ask a question. This should also follow the verb rule.
+
+This is extremely important as if a question is not asked, it may be assumed that the function performs an action and is returning whether that action succeeded.
 
 The Function name is written in PascalCasing.
 ```cs
@@ -40,7 +98,7 @@ private void ExampleFunction()
 }
 ```
 
-**Public functions** require a summary including the parameters and returns.
+**Public & protected functions** require a summary including the parameters and returns.
 ```cs
 /// <summary>
 /// Function description.
@@ -51,6 +109,14 @@ public int ExampleFunction(string parameter)
 {
     Return 0;
 }
+
+/// <summary>
+/// Function description.
+/// </summary>
+protected void ExampleFunction()  
+{
+    Debug.log("I am example!");
+}
 ```
 
 When there is only 1 line of code inside of an function you can use a lambda expresion.
@@ -58,21 +124,47 @@ When there is only 1 line of code inside of an function you can use a lambda exp
 public void ExampleFunction() => SecondExampleFunction();
 ```
 
+Here is a function overfew.
+```cs
+/// <summary>
+/// Function description.
+/// </summary>
+protected void ExampleFunction()  
+{
+    if(_exampleBoolean) ExampleFunction();
+    else SeccondExampleFunction();
+
+    var temporaryHealth = _exampleBoolean ? 1 : 69;
+    _currentHealth = _exampleFloat;
+
+    var listLength = _exampleList.Length;
+    for (int i = 0; i < listLength; i++)
+    {
+         _exampleList[i].SetHealthColor(_blue);
+    }
+}
+```
+
 ------
+### Variables
+When writing a function that does not change the state of or modify any object and is purely for getting information, state, or computing a yes/no value, it should ask a question. This should also follow the verb rule.
 
-### **Variables**
+This is extremely important as if a question is not asked, it may be assumed that the function performs an action and is returning whether that action succeeded.
 
-**Private variable** names always start with an '_' (Even when serialized) after which it is written in camelCasing.
+**Private variable** names always start with an '_' (Even when serialized) after which it is written in camelCasing. If the variable is accisable in the **Unity Inspector** and it's an int or float it needs the Range attribute.
 ```cs
 private Object _variableExample;
 
-[SerializeField]
-private Object _secondVariableExample;
+[SerializeField] private Object _secondVariableExample;
+
+[SerializeField, Range(0, 10)] private int _thirdVariableExample;
+
+[SerializeField, Range(0, 1)] private float _fourthVariableExample;
 ```
 
-**Public variable** names are written in camelCasing.
+**Public variable** names are written in camelCasing. If not a simple int, float or bool, it needs to has the Tooltip attribute.
 ```cs
-public Object variableExample;
+[Tooltip("Explaination of this varible.")] public Object variableExample;
 ```
 
 **Readonly variable** names are written the same as public variables so in camelCasing.
@@ -99,8 +191,8 @@ protected int p_variableExample;
 ```cs
 private void ExampleFunction()
 {
-    float temporaryFloat = 1f;
-    int temporaryInt = 1; 
+    var temporaryFloat = 1f;
+    var temporaryInt = 1; 
 }
 ```
 
@@ -108,8 +200,8 @@ private void ExampleFunction()
 ```cs
 private void ExampleFunction()
 {
-    const float TEMPORARY_FLOAT = 1f;
-    const int TEMPORARY_INT = 1; 
+    const var TEMPORARY_FLOAT = 1f;
+    const var TEMPORARY_INT = 1; 
 }
 ```
 
@@ -120,44 +212,22 @@ public int ExampleInteger
     get => _exampleInterger;
     set 
     {
-        if(value < 0)
-            _exampleInterger = 0;
+        if(value < 0) _exampleInterger = 0;
     }
 }
 ```
 
-------
-
-### **If statements**
-
-When there is only 1 line of code after an if statement it needs to be tabbed under the if statement and does not need brackets and same with the else.
-```cs
-if(_exampleBoolean)
-    ExampleFunction();
-else
-    SeccondExampleFunction();
-
-if(_exampleBoolean)
-    ExampleFunction();
+Arrays follow the same naming rules as above, but should be named as a plural noun.
 ```
+// good
+`Targets`, `Hats`, and `EnemyPlayers`
 
-If either the if or the else in the statement contains multiple lines of code both the if and the else need brackets.
-```cs
-if(_exampleBoolean)
-{
-    ExampleFunction();
-}
-else
-{
-    SeccondExampleFunction();
-    ThirdExampleFunction();
-}
+// bad
+`TargetList`, `HatArray`, `EnemyPlayerArray`
 ```
 
 ------
-
-### **Structs**
-
+### Structs
 The struct name is written in PascalCasing and everything inside the struct follows the usual code conventions.
 ```cs
 public struct ExampleStruct
@@ -168,14 +238,101 @@ public struct ExampleStruct
 ```
 
 ------
-
-### **Enums**
-
+### Enums
 The enum name is written in PascalCasing while the constants are in FULL_CAPITALS.
 ```cs
 enum ExampleEnum
 {
     FIRST_CONSTANT,
     SECOND_CONSTANT
+}
+```
+
+------
+### If statements
+When there is only 1 line of code after an if statement it comes right after it and same with the else.
+```cs
+if(_exampleBoolean) ExampleFunction();
+else SeccondExampleFunction();
+
+if(_exampleBoolean) ExampleFunction();
+```
+
+If either the if or the else in the statement contains multiple lines of code, the if and the else do not need brackets both.
+```cs
+if(_exampleBoolean) ExampleFunction();
+else
+{
+    SeccondExampleFunction();
+    ThirdExampleFunction();
+}
+```
+
+When the condition is getting to long, make new lines for it.
+```cs
+// bad example
+if(_exampleBoolean && 0 == 0 || true) ExampleFunction();
+
+// good example
+if(_exampleBoolean
+    && 0 == 0
+    || true) ExampleFunction();
+
+// also good example
+var canBeCalled = _exampleBoolean && 0 == 0 || true;
+if(canBeCallled) ExampleFunction();
+```
+
+##### ternary operator
+I highly recommand ternary operators when dynamicly change 1 varible.
+```cs
+// bad example
+if(_exampleBoolean) _exampleFloat = 1;
+else _exampleFloat = 69;
+
+// good example
+_exampleFloat = _exampleBoolean ? 1 : 69;
+```
+
+------
+### Loops
+For better performance (even very small) we make the length it's own (local)varible.
+```cs
+var listLength = _exampleList.Length;
+for (int i = 0; i < listLength; i++)
+{
+
+}
+```
+
+------
+### Scriptable object
+Scriptable objects holds data and/or settings, this needs to be reflected in the name. Do not forget the CreateAssetMenu attribute.
+```cs
+[CreateAssetMenu(fileName = "NewGunData", menuName = "Gun Data")]
+public class GunData : ScriptableObject
+{
+    public readonly int maxAmmoAmount;
+    public int currentAmmoAmount;
+
+    public void ResetAmmoAmount() => currentAmmoAmount = maxAmmoAmount;
+}
+```
+
+Just in case, here is a bad way to make an scriptable object.
+```cs
+[CreateAssetMenu(fileName = "ScriptableObject / Song info")]
+public sealed class SongInfo : ScriptableObject
+{
+    [field: SerializeField, Tooltip("This is the MP3 file that should play")] public AudioClip Song { get; private set; }
+    [field: SerializeField, Tooltip("The person who made the song")] public string Artist { get; private set; }
+
+    [Serializable] public struct LyricNode
+    {
+        [field: SerializeField, TextArea(5, 50)]  public string TextPart { get; private set; }
+        [field: SerializeField, Tooltip("The delay till the next lyric node")] public float TimeStamp { get; private set; }
+        [field: SerializeField, Range(0.05f, 1f)] public float Speed { get; private set; }
+    }
+    [field: SerializeField] public LyricNode[] Nodes { get; private set; }
 }
 ```

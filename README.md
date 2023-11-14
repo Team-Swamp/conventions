@@ -98,6 +98,29 @@ private void ExampleFunction()
 }
 ```
 
+**Access modifiers** are always writen with functions.
+```cs
+void ExampleFunction()
+{
+    Debug.Log("Not allowed");
+}
+
+private void ExampleFunction()
+{
+    Debug.Log("I'm a private function.");
+}
+
+protected void ExampleFunction()
+{
+    Debug.Log("I'm a protected function.");
+}
+
+public void ExampleFunction()
+{
+    Debug.Log("I'm a public function.");
+}
+```
+
 **Public & protected functions** require a summary including the parameters and returns.
 ```cs
 /// <summary>
@@ -150,6 +173,17 @@ protected void ExampleFunction()
 When writing a function that does not change the state of or modify any object and is purely for getting information, state, or computing a yes/no value, it should ask a question. This should also follow the verb rule.
 
 This is extremely important as if a question is not asked, it may be assumed that the function performs an action and is returning whether that action succeeded.
+
+**Access modifiers** are always writen with varibles.
+```cs
+// Allowed
+private int _variableExample0;
+protected int variableExample1;
+public int variableExample2;
+
+// Not allowed
+int _variableExample3;
+```
 
 **Private variable** names always start with an '_' (Even when serialized) after which it is written in camelCasing. If the variable is accisable in the **Unity Inspector** and it's an int or float it needs the Range attribute.
 ```cs

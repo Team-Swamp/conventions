@@ -142,6 +142,27 @@ protected void ExampleFunction()
 }
 ```
 
+When there are more then 1 parameter, we addept this rule for readability. This does defeat the rule below.
+```cs
+// Good
+private void ExampleFunction(
+    int a,
+    int b,
+    float c,
+    MonoBehaviour targetClass,
+    bool isTrue,
+    double funnyNumber)
+{
+    
+}
+
+// Bad
+private void ExampleFunction(int a, int b, float c, MonoBehaviour targetClass, bool isTrue, double funnyNumber)
+{
+    
+}
+```
+
 When there is only 1 line of code inside of an function you can use a lambda expresion.
 ```cs
 public void ExampleFunction() => SecondExampleFunction();

@@ -246,8 +246,9 @@ protected int p_variableExample;
 ```cs
 private void ExampleFunction()
 {
-    var temporaryFloat = 1f;
-    var temporaryInt = 1; 
+    float temporaryFloat = 1f;
+    int temporaryInt = 1;
+    double temporaryDouble = 1.00;
 }
 ```
 
@@ -255,8 +256,9 @@ private void ExampleFunction()
 ```cs
 private void ExampleFunction()
 {
-    const var TEMPORARY_FLOAT = 1f;
-    const var TEMPORARY_INT = 1; 
+    const float TEMPORARY_FLOAT = 1f;
+    const int TEMPORARY_INT = 1;
+    double TEMPORARY_DOUBLE = 1.00;
 }
 ```
 
@@ -334,7 +336,7 @@ if(_exampleBoolean
     || true) ExampleFunction();
 
 // also good example
-var canBeCalled = _exampleBoolean && 0 == 0 || true;
+bool canBeCalled = _exampleBoolean && 0 == 0 || true;
 if(canBeCallled) ExampleFunction();
 ```
 
@@ -348,12 +350,37 @@ else _exampleFloat = 69;
 // good example
 _exampleFloat = _exampleBoolean ? 1 : 69;
 ```
+Also a note, don't make them to big
+```cs
+// Not readable
+currentIndex = direction ? (startIndex * 2 > (int)corridor.GetNodes().Lenght - 1) ? (int)corridor.GetNodes().Lenght - 1 : max(startIndex * 2 - 1, 0)) : (startIndex * 2 - 1 < 0 ? 0 : indexMinCap = max(startIndex * 2, nodeSize));
+
+// Readable
+currentIndex = direction
+    ? (startIndex * 2 > (int)corridor.GetNodes().Lenght - 1)
+        ? (int)corridor.GetNodes().Lenght - 1
+        : max(startIndex * 2 - 1, 0)))
+    : (startIndex * 2 - 1 < 0
+        ? 0
+        : indexMinCap = max(startIndex * 2, nodeSize));
+
+// Best readable
+int nodeSize = (int)corridor.GetNodes().Lenght - 1;
+int indexMaxCap = max(startIndex * 2 - 1, 0);
+int indexMinCap = max(startIndex * 2, nodeSize);
+bool isBig = startIndex * 2 > (int)corridor.GetNodes().Lenght - 1;
+bool isSmall = startIndex * 2 - 1 < 0;
+
+currentIndex = direction
+    ? (isBig ? nodeSize : indexMaxCap)
+    : (isSmall ? 0 : indexMinCap)
+```
 
 ------
 ### Loops
 For better performance (even very small) we make the length it's own (local)varible.
 ```cs
-var listLength = _exampleList.Length;
+int listLength = _exampleList.Length;
 for (int i = 0; i < listLength; i++)
 {
 
@@ -362,15 +389,16 @@ for (int i = 0; i < listLength; i++)
 
 ------
 ### Scriptable object
-Scriptable objects holds data and/or settings, this needs to be reflected in the name. Do not forget the CreateAssetMenu attribute.
+Scriptable objects holds data and/or settings, this needs to be reflected in the name. Do not forget the CreateAssetMenu attribute and put it in the correct namespace.
 ```cs
 [CreateAssetMenu(fileName = "NewGunData", menuName = "Gun Data")]
-public class GunData : ScriptableObject
+public sealed class GunData : ScriptableObject
 {
-    public readonly int maxAmmoAmount;
+    private int _maxAmmoAmount;
     public int currentAmmoAmount;
 
-    public void ResetAmmoAmount() => currentAmmoAmount = maxAmmoAmount;
+    public void ResetAmmoAmount() => currentAmmoAmount = _maxAmmoAmount;
+    public int MaxAmmoAmount() => _maxAmmoAmount;
 }
 ```
 

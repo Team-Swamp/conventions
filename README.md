@@ -98,7 +98,7 @@ private void ExampleFunction()
 }
 ```
 
-**Access modifiers** are always writen with functions.
+**Access modifiers** are always written with functions.
 ```cs
 void ExampleFunction()
 {
@@ -142,13 +142,13 @@ protected void ExampleFunction()
 }
 ```
 
-When there are more then 1 parameter, we addept this rule for readability. This does defeat the rule below.
+When there is more than 1 parameter, we add this rule for readability. This does defeat the rule below.
 ```cs
 // Good
 private void ExampleFunction(
-    int a,
-    int b,
-    float c,
+    int firstNumber,
+    int secondNumber,
+    float numberWithComma,
     MonoBehaviour targetClass,
     bool isTrue,
     double funnyNumber)
@@ -195,7 +195,7 @@ When writing a function that does not change the state of or modify any object a
 
 This is extremely important as if a question is not asked, it may be assumed that the function performs an action and is returning whether that action succeeded.
 
-**Access modifiers** are always writen with varibles.
+**Access modifiers** are always written with variables.
 ```cs
 // Allowed
 private int _variableExample0;

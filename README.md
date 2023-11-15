@@ -296,12 +296,12 @@ public struct ExampleStruct
 
 ------
 ### Enums
-The enum name is written in PascalCasing while the constants are in FULL_CAPITALS.
+The enum name is written in PascalCasing while the constants are in FULL-CAPITALS with kebab-casing.
 ```cs
 enum ExampleEnum
 {
-    FIRST_CONSTANT,
-    SECOND_CONSTANT
+    FIRST-CONSTANT,
+    SECOND-CONSTANT
 }
 ```
 

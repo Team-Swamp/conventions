@@ -1,4 +1,4 @@
-# unity-code-conventie
+# unity-code-convention
 
 Team-swamp's Unity & C# code conventie. Everything is typed in the English languegue.
 

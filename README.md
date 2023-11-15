@@ -325,19 +325,23 @@ else
 }
 ```
 
-When the condition is getting to long, make new lines for it.
+When the condition is multiple condtions, make new lines for it.
 ```cs
 // bad example
-if(_exampleBoolean && 0 == 0 || true) ExampleFunction();
+if (_exampleBoolean && 0 == 0 || true) ExampleFunction();
 
 // good example
-if(_exampleBoolean
+if (_exampleBoolean
     && 0 == 0
+    || true) ExampleFunction();
+
+// good example
+if (_exampleBoolean && _otherExampleBoolean
     || true) ExampleFunction();
 
 // also good example
 bool canBeCalled = _exampleBoolean && 0 == 0 || true;
-if(canBeCallled) ExampleFunction();
+if (canBeCallled) ExampleFunction();
 ```
 
 ##### ternary operator
@@ -351,7 +355,7 @@ else _exampleFloat = 69;
 _exampleFloat = _exampleBoolean ? 1 : 69;
 ```
 Also a note, don't make them to big
-```cs
+```cpp
 // Not readable
 currentIndex = direction ? (startIndex * 2 > (int)corridor.GetNodes().Lenght - 1) ? (int)corridor.GetNodes().Lenght - 1 : max(startIndex * 2 - 1, 0)) : (startIndex * 2 - 1 < 0 ? 0 : indexMinCap = max(startIndex * 2, nodeSize));
 

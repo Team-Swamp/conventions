@@ -157,7 +157,7 @@ private void ExampleFunction(
 }
 
 // Bad
-private void ExampleFunction(int a, int b, float c, MonoBehaviour targetClass, bool isTrue, double funnyNumber)
+private void ExampleFunction(int firstNumber, int secondNumber, float numberWithComma, MonoBehaviour targetClass, bool isTrue, double funnyNumber)
 {
     
 }
@@ -195,6 +195,8 @@ When writing a function that does not change the state of or modify any object a
 
 This is extremely important as if a question is not asked, it may be assumed that the function performs an action and is returning whether that action succeeded.
 
+A varbile is almost always private. If you need the value make a getter for it. This is also why serialized have a '_' exception. 
+
 **Access modifiers** are always written with variables.
 ```cs
 // Allowed
@@ -206,18 +208,18 @@ public int variableExample2;
 int _variableExample3;
 ```
 
-**Private variable** names always start with an '_' (Even when serialized) after which it is written in camelCasing. If the variable is accisable in the **Unity Inspector** and it's an int or float it needs the Range attribute.
+**Private variable** names always start with an '_' (Except when serialized) after which it is written in camelCasing. If the variable is accisable in the **Unity Inspector** and it's an int or float it needs the Range attribute.
 ```cs
 private Object _variableExample;
 
-[SerializeField] private Object _secondVariableExample;
+[SerializeField] private Object secondVariableExample;
 
-[SerializeField, Range(0, 10)] private int _thirdVariableExample;
+[SerializeField, Range(0, 10)] private int thirdVariableExample;
 
-[SerializeField, Range(0, 1)] private float _fourthVariableExample;
+[SerializeField, Range(0, 1)] private float fourthVariableExample;
 ```
 
-**Public variable** names are written in camelCasing. If not a simple int, float or bool, it needs to has the Tooltip attribute.
+**Public variable** names are written in camelCasing. If not a number, char, string or bool, it needs to has the Tooltip attribute.
 ```cs
 [Tooltip("Explaination of this varible.")] public Object variableExample;
 ```

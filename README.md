@@ -166,6 +166,16 @@ private void ExampleFunction(int firstNumber, int secondNumber, float numberWith
 When there is only 1 line of code inside of an function you can use a lambda expresion.
 ```cs
 public void ExampleFunction() => SecondExampleFunction();
+
+// with parameters
+public void ExampleFunction(
+    int firstNumber,
+    int secondNumber,
+    float numberWithComma,
+    MonoBehaviour targetClass,
+    bool isTrue,
+    double funnyNumber)
+    => SecondExampleFunction();
 ```
 
 Here is a function overfew.
@@ -276,13 +286,13 @@ public int ExampleInteger
 }
 ```
 
-Arrays follow the same naming rules as above, but should be named as a plural noun.
+Arrays follow the same naming rules as above, but should be named as a plural noun. The bad examples are hungarian notation and we don't do that here.
 ```
 // good
 `Targets`, `Hats`, and `EnemyPlayers`
 
 // bad
-`TargetList`, `HatArray`, `EnemyPlayerArray`
+`TargetList`, `HatArray` and `EnemyPlayerArray`
 ```
 
 ------
@@ -311,15 +321,19 @@ enum ExampleEnum
 ### If statements
 When there is only 1 line of code after an if statement it comes right after it and same with the else.
 ```cs
-if(_exampleBoolean) ExampleFunction();
-else SeccondExampleFunction();
+if (_exampleBoolean)
+    ExampleFunction();
+else
+    SeccondExampleFunction();
 
-if(_exampleBoolean) ExampleFunction();
+if (_exampleBoolean)
+    return;
 ```
 
 If either the if or the else in the statement contains multiple lines of code, the if and the else do not need brackets both.
 ```cs
-if(_exampleBoolean) ExampleFunction();
+if (_exampleBoolean)
+    ExampleFunction();
 else
 {
     SeccondExampleFunction();
@@ -330,28 +344,34 @@ else
 When the condition is multiple condtions, make new lines for it.
 ```cs
 // bad example
-if (_exampleBoolean && 0 == 0 || true) ExampleFunction();
+if (_exampleBoolean && 0 == 0 || true)
+    ExampleFunction();
 
 // good example
 if (_exampleBoolean
     && 0 == 0
-    || true) ExampleFunction();
+    || true)
+    ExampleFunction();
 
 // good example
 if (_exampleBoolean && _otherExampleBoolean
-    || true) ExampleFunction();
+    || true)
+    ExampleFunction();
 
 // also good example
 bool canBeCalled = _exampleBoolean && 0 == 0 || true;
-if (canBeCallled) ExampleFunction();
+if (canBeCallled)
+    ExampleFunction();
 ```
 
 ##### ternary operator
 I highly recommand ternary operators when dynamicly change 1 varible.
 ```cs
 // bad example
-if(_exampleBoolean) _exampleFloat = 1;
-else _exampleFloat = 69;
+if (_exampleBoolean)
+    _exampleFloat = 1;
+else
+    _exampleFloat = 69;
 
 // good example
 _exampleFloat = _exampleBoolean ? 1 : 69;

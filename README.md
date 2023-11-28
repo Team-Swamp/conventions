@@ -18,7 +18,7 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 
 ------
 ### Namespaces
-The namespace name is written in PascalCasing.
+The namespace name is written in PascalCasing. The lines in the namespaces should should not exstend a col of 120.
 Every class needs to be inside of a namespace.
 ```cs
 namespace ExampleNamespace

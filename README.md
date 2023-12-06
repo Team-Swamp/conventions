@@ -9,6 +9,7 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 - [Classes](#classes)
 - [Functions](#functions)
 - [Variables](#variables)
+    - [Hungarian notation](#hungarian-notation)
 - [Structs](#structs)
 - [Enums](#enums)
 - [If statement](#if-statements)
@@ -19,22 +20,35 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 ------
 ### Namespaces
 The namespace name is written in PascalCasing. The lines in the namespaces should should not exstend a col of 120.
-Every class needs to be inside of a namespace.
+Every class, scriptableObject and struct (if separate) needs to be inside of a namespace.
 ```cs
 namespace ExampleNamespace
 {
     public class ExampleScript : MonoBehaviour
     {
-
+        
     }
 }
 ```
 ```cs
+using UnityEngine;
+
 namespace ExampleNamespace.ScriptableObjects
 {
     public class ExampleScriptableObject : ScriptableObject
     {
+        
+    }
+}
+```
+```cs
+using Systems;
 
+namespace ExampleNamespace
+{
+    public struct ExampleStruct
+    {
+        
     }
 }
 ```
@@ -142,8 +156,14 @@ protected void ExampleFunction()
 }
 ```
 
-When there is more than 1 parameter, we add this rule for readability. This does defeat the rule below.
+When there is more than 2 parameter, we add this rule for readability. This does defeat the rule below.
 ```cs
+// Good
+private void ExampleFunction(int firstNumber, int secondNumber)
+{
+    
+}
+
 // Good
 private void ExampleFunction(
     int firstNumber,
@@ -176,27 +196,6 @@ public void ExampleFunction(
     bool isTrue,
     double funnyNumber)
     => SecondExampleFunction();
-```
-
-Here is a function overfew.
-```cs
-/// <summary>
-/// Function description.
-/// </summary>
-protected void ExampleFunction()  
-{
-    if(_exampleBoolean) ExampleFunction();
-    else SeccondExampleFunction();
-
-    var temporaryHealth = _exampleBoolean ? 1 : 69;
-    _currentHealth = _exampleFloat;
-
-    var listLength = _exampleList.Length;
-    for (int i = 0; i < listLength; i++)
-    {
-         _exampleList[i].SetHealthColor(_blue);
-    }
-}
 ```
 
 ------
@@ -239,9 +238,9 @@ private Object _variableExample;
 public readonly Object variableExample;
 ```
 
-**Constant variable** names are written in FULL_CAPITALS.
+**Constant variable** names are written in FULL-CAPITALS with kebab-casing.
 ```cs
-public const int EXAMPLE_CONSTANT_VALUE;
+public const int EXAMPLE-CONSTANT-VALUE;
 ```
 
 **Internal variable** names always start with 'i_' after which it is written in camelCasing.
@@ -264,13 +263,13 @@ private void ExampleFunction()
 }
 ```
 
-**Temporary constants** inside of an function always need to be written out and are written in FULL_CAPITALS.
+**Temporary constants** inside of an function always need to be written out and are written in FULL_CAPITALS with kebab-casing.
 ```cs
 private void ExampleFunction()
 {
-    const float TEMPORARY_FLOAT = 1f;
-    const int TEMPORARY_INT = 1;
-    double TEMPORARY_DOUBLE = 1.00;
+    const float TEMPORARY-FLOAT = 1f;
+    const int TEMPORARY-INT = 1;
+    const double TEMPORARY-DOUBLE = 1.00;
 }
 ```
 
@@ -285,14 +284,28 @@ public int ExampleInteger
     }
 }
 ```
+#### Hungarian notation
 
-Arrays follow the same naming rules as above, but should be named as a plural noun. The bad examples are hungarian notation and we don't do that here.
+We don't do that here. It's crucial to note that Hungarian notation is considered a suboptimal practice in coding standards.
+
+```cs
+// good
+private int targetAmount;
+private Player player;
+private ExampleStruct currentStruct;
+
+//bad
+private int _intTargetAmount;
+private Agent _agentAgent;
+private ExampleStruct _exampleStructCurrentStruct;
+```
+This also apply to collections. They follow the same naming rules as mentioned before, but should be named as a plural noun.
 ```
 // good
-`Targets`, `Hats`, and `EnemyPlayers`
+'Enemies' `Targets` and `Hats`
 
 // bad
-`TargetList`, `HatArray` and `EnemyPlayerArray`
+'DictionaryEnemies' `TargetList` and `HatArray`
 ```
 
 ------

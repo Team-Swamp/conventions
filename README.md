@@ -210,7 +210,7 @@ A varbile is almost always private. If you need the value make a getter for it. 
 ```cs
 // Allowed
 private int _variableExample0;
-protected int variableExample1;
+protected int p_variableExample1;
 public int variableExample2;
 
 // Not allowed
@@ -302,10 +302,10 @@ private ExampleStruct _exampleStructCurrentStruct;
 This also apply to collections. They follow the same naming rules as mentioned before, but should be named as a plural noun.
 ```
 // good
-'Enemies' `Targets` and `Hats`
+'Enemies', `Targets` and `Hats`
 
 // bad
-'DictionaryEnemies' `TargetList` and `HatArray`
+'DictionaryEnemies', `TargetList` and `HatArray`
 ```
 
 ------
@@ -354,7 +354,7 @@ else
 }
 ```
 
-When the condition is multiple condtions, make new lines for it.
+When the condition has multiple condtions, make new lines for it.
 ```cs
 // bad example
 if (_exampleBoolean && 0 == 0 || true)

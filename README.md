@@ -238,9 +238,9 @@ private Object _variableExample;
 public readonly Object variableExample;
 ```
 
-**Constant variable** names are written in FULL-CAPITALS with kebab-casing.
+**Constant variable** names are written in FULL_CAPITALS with snake_casing.
 ```cs
-public const int EXAMPLE-CONSTANT-VALUE;
+public const int EXAMPLE_CONSTANT_VALUE;
 ```
 
 **Internal variable** names always start with 'i_' after which it is written in camelCasing.
@@ -263,13 +263,13 @@ private void ExampleFunction()
 }
 ```
 
-**Temporary constants** inside of an function always need to be written out and are written in FULL_CAPITALS with kebab-casing.
+**Temporary constants** inside of an function always need to be written out and are written in FULL_CAPITALS with snake_casing.
 ```cs
 private void ExampleFunction()
 {
-    const float TEMPORARY-FLOAT = 1f;
-    const int TEMPORARY-INT = 1;
-    const double TEMPORARY-DOUBLE = 1.00;
+    const float TEMPORARY_FLOAT = 1f;
+    const int TEMPORARY_INT = 1;
+    const double TEMPORARY_DOUBLE = 1.00;
 }
 ```
 
@@ -321,12 +321,12 @@ public struct ExampleStruct
 
 ------
 ### Enums
-The enum name is written in PascalCasing while the constants are in FULL-CAPITALS with kebab-casing.
+The enum name is written in PascalCasing while the constants are in FULL_CAPITALS with snake_casing.
 ```cs
 enum ExampleEnum
 {
-    FIRST-CONSTANT,
-    SECOND-CONSTANT
+    FIRST_CONSTANT,
+    SECOND_CONSTANT
 }
 ```
 

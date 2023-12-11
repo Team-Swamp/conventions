@@ -1,4 +1,4 @@
-# unity-code-conventie
+# unity-code-convention
 
 Team-swamp's Unity & C# code conventie. Everything is typed in the English languegue.
 
@@ -9,6 +9,7 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 - [Classes](#classes)
 - [Functions](#functions)
 - [Variables](#variables)
+    - [Hungarian notation](#hungarian-notation)
 - [Structs](#structs)
 - [Enums](#enums)
 - [If statement](#if-statements)
@@ -18,23 +19,36 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 
 ------
 ### Namespaces
-The namespace name is written in PascalCasing.
-Every class needs to be inside of a namespace.
+The namespace name is written in PascalCasing. The lines in the namespaces should should not exstend a chracter count of 120.
+Every class, scriptableObject and struct needs to be inside of a namespace.
 ```cs
 namespace ExampleNamespace
 {
     public class ExampleScript : MonoBehaviour
     {
-
+        
     }
 }
 ```
 ```cs
+using UnityEngine;
+
 namespace ExampleNamespace.ScriptableObjects
 {
     public class ExampleScriptableObject : ScriptableObject
     {
+        
+    }
+}
+```
+```cs
+using Systems;
 
+namespace ExampleNamespace
+{
+    public struct ExampleStruct
+    {
+        
     }
 }
 ```
@@ -98,6 +112,29 @@ private void ExampleFunction()
 }
 ```
 
+**Access modifiers** are always written with functions.
+```cs
+void ExampleFunction()
+{
+    Debug.Log("Not allowed");
+}
+
+private void ExampleFunction()
+{
+    Debug.Log("I'm a private function.");
+}
+
+protected void ExampleFunction()
+{
+    Debug.Log("I'm a protected function.");
+}
+
+public void ExampleFunction()
+{
+    Debug.Log("I'm a public function.");
+}
+```
+
 **Public & protected functions** require a summary including the parameters and returns.
 ```cs
 /// <summary>
@@ -119,30 +156,48 @@ protected void ExampleFunction()
 }
 ```
 
-When there is only 1 line of code inside of an function you can use a lambda expresion.
+When there is more than 2 parameter, we add this rule for readability. This does defeat the rule below.
 ```cs
-public void ExampleFunction() => SecondExampleFunction();
+// Good
+private void ExampleFunction(int firstNumber, int secondNumber)
+{
+    
+}
+
+// Good
+private void ExampleFunction(
+    int firstNumber,
+    int secondNumber,
+    float numberWithComma,
+    ExampleComponent targetClass,
+    bool isTrue,
+    double funnyNumber)
+{
+    
+}
+
+// Bad
+private void ExampleFunction(int firstNumber, int secondNumber, float numberWithComma, ExampleComponent targetClass, bool isTrue, double funnyNumber)
+{
+    
+}
 ```
 
-Here is a function overfew.
+When there is only 1 line of code inside of an function you can use a lambda expresion.
+
+When the lambda expression is over the character limit of 120. You need to break-up the code in local variables.
 ```cs
-/// <summary>
-/// Function description.
-/// </summary>
-protected void ExampleFunction()  
-{
-    if(_exampleBoolean) ExampleFunction();
-    else SeccondExampleFunction();
+public void ExampleFunction() => SecondExampleFunction();
 
-    var temporaryHealth = _exampleBoolean ? 1 : 69;
-    _currentHealth = _exampleFloat;
-
-    var listLength = _exampleList.Length;
-    for (int i = 0; i < listLength; i++)
-    {
-         _exampleList[i].SetHealthColor(_blue);
-    }
-}
+// with parameters
+public void ExampleFunction(
+    int firstNumber,
+    int secondNumber,
+    float numberWithComma,
+    ExampleComponent targetClass,
+    bool isTrue,
+    double funnyNumber)
+    => SecondExampleFunction();
 ```
 
 ------
@@ -151,18 +206,31 @@ When writing a function that does not change the state of or modify any object a
 
 This is extremely important as if a question is not asked, it may be assumed that the function performs an action and is returning whether that action succeeded.
 
-**Private variable** names always start with an '_' (Even when serialized) after which it is written in camelCasing. If the variable is accisable in the **Unity Inspector** and it's an int or float it needs the Range attribute.
+A varbile is almost always private. If you need the value make a getter for it. This is also why serialized have a '_' exception. 
+
+**Access modifiers** are always written with variables.
+```cs
+// Allowed
+private int _variableExample0;
+protected int p_variableExample1;
+public int variableExample2;
+
+// Not allowed
+int _variableExample3;
+```
+
+**Private variable** names always start with an '_' (Except when serialized) after which it is written in camelCasing. If the variable is accisable in the **Unity Inspector** and it's an int or float it needs the Range attribute.
 ```cs
 private Object _variableExample;
 
-[SerializeField] private Object _secondVariableExample;
+[SerializeField] private Object secondVariableExample;
 
-[SerializeField, Range(0, 10)] private int _thirdVariableExample;
+[SerializeField, Range(0, 10)] private int thirdVariableExample;
 
-[SerializeField, Range(0, 1)] private float _fourthVariableExample;
+[SerializeField, Range(0, 1)] private float fourthVariableExample;
 ```
 
-**Public variable** names are written in camelCasing. If not a simple int, float or bool, it needs to has the Tooltip attribute.
+**Public variable** names are written in camelCasing. If not a number, char, string or bool, it needs to has the Tooltip attribute.
 ```cs
 [Tooltip("Explaination of this varible.")] public Object variableExample;
 ```
@@ -172,7 +240,7 @@ private Object _variableExample;
 public readonly Object variableExample;
 ```
 
-**Constant variable** names are written in FULL_CAPITALS.
+**Constant variable** names are written in FULL_CAPITALS with snake_casing.
 ```cs
 public const int EXAMPLE_CONSTANT_VALUE;
 ```
@@ -191,17 +259,19 @@ protected int p_variableExample;
 ```cs
 private void ExampleFunction()
 {
-    var temporaryFloat = 1f;
-    var temporaryInt = 1; 
+    float temporaryFloat = 1f;
+    int temporaryInt = 1;
+    double temporaryDouble = 1.00;
 }
 ```
 
-**Temporary constants** inside of an function always need to be written out and are written in FULL_CAPITALS.
+**Temporary constants** inside of an function always need to be written out and are written in FULL_CAPITALS with snake_casing.
 ```cs
 private void ExampleFunction()
 {
-    const var TEMPORARY_FLOAT = 1f;
-    const var TEMPORARY_INT = 1; 
+    const float TEMPORARY_FLOAT = 1f;
+    const int TEMPORARY_INT = 1;
+    const double TEMPORARY_DOUBLE = 1.00;
 }
 ```
 
@@ -216,14 +286,28 @@ public int ExampleInteger
     }
 }
 ```
+#### Hungarian notation
 
-Arrays follow the same naming rules as above, but should be named as a plural noun.
+We don't do that here. It's crucial to note that Hungarian notation is considered a suboptimal practice in coding standards.
+
+```cs
+// good
+private int _targetAmount;
+private ExampleComponent _system;
+private ExampleStruct _currentStruct;
+
+//bad
+private int _intTargetAmount;
+private ExampleComponent _exampleComponetSystem;
+private ExampleStruct _exampleStructCurrentStruct;
+```
+This also apply to collections. They follow the same naming rules as mentioned before, but should be named as a plural noun.
 ```
 // good
-`Targets`, `Hats`, and `EnemyPlayers`
+'Enemies', `Targets` and `Hats`
 
 // bad
-`TargetList`, `HatArray`, `EnemyPlayerArray`
+'DictionaryEnemies', `TargetList` and `HatArray`
 ```
 
 ------
@@ -239,7 +323,7 @@ public struct ExampleStruct
 
 ------
 ### Enums
-The enum name is written in PascalCasing while the constants are in FULL_CAPITALS.
+The enum name is written in PascalCasing while the constants are in FULL_CAPITALS with snake_casing.
 ```cs
 enum ExampleEnum
 {
@@ -252,15 +336,19 @@ enum ExampleEnum
 ### If statements
 When there is only 1 line of code after an if statement it comes right after it and same with the else.
 ```cs
-if(_exampleBoolean) ExampleFunction();
-else SeccondExampleFunction();
+if (_exampleBoolean)
+    ExampleFunction();
+else
+    SeccondExampleFunction();
 
-if(_exampleBoolean) ExampleFunction();
+if (_exampleBoolean)
+    return;
 ```
 
 If either the if or the else in the statement contains multiple lines of code, the if and the else do not need brackets both.
 ```cs
-if(_exampleBoolean) ExampleFunction();
+if (_exampleBoolean)
+    ExampleFunction();
 else
 {
     SeccondExampleFunction();
@@ -268,27 +356,37 @@ else
 }
 ```
 
-When the condition is getting to long, make new lines for it.
+When the condition has multiple condtions, make new lines for it.
 ```cs
 // bad example
-if(_exampleBoolean && 0 == 0 || true) ExampleFunction();
+if (_exampleBoolean && 0 == 0 || true)
+    ExampleFunction();
 
 // good example
-if(_exampleBoolean
+if (_exampleBoolean
     && 0 == 0
-    || true) ExampleFunction();
+    || true)
+    ExampleFunction();
+
+// good example
+if (_exampleBoolean && _otherExampleBoolean
+    || true)
+    ExampleFunction();
 
 // also good example
-var canBeCalled = _exampleBoolean && 0 == 0 || true;
-if(canBeCallled) ExampleFunction();
+bool canBeCalled = _exampleBoolean && 0 == 0 || true;
+if (canBeCallled)
+    ExampleFunction();
 ```
 
 ##### ternary operator
-I highly recommand ternary operators when dynamicly change 1 varible.
+I highly recommand ternary operators when dynamicly change 1 varible. Also a note, don't make them to big, no ternary operator in ternary operator.
 ```cs
 // bad example
-if(_exampleBoolean) _exampleFloat = 1;
-else _exampleFloat = 69;
+if (_exampleBoolean)
+    _exampleFloat = 1;
+else
+    _exampleFloat = 69;
 
 // good example
 _exampleFloat = _exampleBoolean ? 1 : 69;
@@ -298,7 +396,7 @@ _exampleFloat = _exampleBoolean ? 1 : 69;
 ### Loops
 For better performance (even very small) we make the length it's own (local)varible.
 ```cs
-var listLength = _exampleList.Length;
+int listLength = _exampleList.Length;
 for (int i = 0; i < listLength; i++)
 {
 
@@ -307,15 +405,16 @@ for (int i = 0; i < listLength; i++)
 
 ------
 ### Scriptable object
-Scriptable objects holds data and/or settings, this needs to be reflected in the name. Do not forget the CreateAssetMenu attribute.
+Scriptable objects holds data and/or settings, this needs to be reflected in the name. Do not forget the CreateAssetMenu attribute and put it in the correct namespace.
 ```cs
 [CreateAssetMenu(fileName = "NewGunData", menuName = "Gun Data")]
-public class GunData : ScriptableObject
+public sealed class GunData : ScriptableObject
 {
-    public readonly int maxAmmoAmount;
+    private int _maxAmmoAmount;
     public int currentAmmoAmount;
 
-    public void ResetAmmoAmount() => currentAmmoAmount = maxAmmoAmount;
+    public void ResetAmmoAmount() => currentAmmoAmount = _maxAmmoAmount;
+    public int MaxAmmoAmount() => _maxAmmoAmount;
 }
 ```
 

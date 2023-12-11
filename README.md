@@ -19,8 +19,8 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 
 ------
 ### Namespaces
-The namespace name is written in PascalCasing. The lines in the namespaces should should not exstend a col of 120.
-Every class, scriptableObject and struct (if separate) needs to be inside of a namespace.
+The namespace name is written in PascalCasing. The lines in the namespaces should should not exstend a chracter count of 120.
+Every class, scriptableObject and struct needs to be inside of a namespace.
 ```cs
 namespace ExampleNamespace
 {
@@ -169,7 +169,7 @@ private void ExampleFunction(
     int firstNumber,
     int secondNumber,
     float numberWithComma,
-    MonoBehaviour targetClass,
+    ExampleComponent targetClass,
     bool isTrue,
     double funnyNumber)
 {
@@ -177,13 +177,15 @@ private void ExampleFunction(
 }
 
 // Bad
-private void ExampleFunction(int firstNumber, int secondNumber, float numberWithComma, MonoBehaviour targetClass, bool isTrue, double funnyNumber)
+private void ExampleFunction(int firstNumber, int secondNumber, float numberWithComma, ExampleComponent targetClass, bool isTrue, double funnyNumber)
 {
     
 }
 ```
 
 When there is only 1 line of code inside of an function you can use a lambda expresion.
+
+When the lambda expression is over the character limit of 120. You need to break-up the code in local variables.
 ```cs
 public void ExampleFunction() => SecondExampleFunction();
 
@@ -192,7 +194,7 @@ public void ExampleFunction(
     int firstNumber,
     int secondNumber,
     float numberWithComma,
-    MonoBehaviour targetClass,
+    ExampleComponent targetClass,
     bool isTrue,
     double funnyNumber)
     => SecondExampleFunction();
@@ -290,13 +292,13 @@ We don't do that here. It's crucial to note that Hungarian notation is considere
 
 ```cs
 // good
-private int targetAmount;
-private Player player;
-private ExampleStruct currentStruct;
+private int _targetAmount;
+private ExampleComponent _system;
+private ExampleStruct _currentStruct;
 
 //bad
 private int _intTargetAmount;
-private Agent _agentAgent;
+private ExampleComponent _exampleComponetSystem;
 private ExampleStruct _exampleStructCurrentStruct;
 ```
 This also apply to collections. They follow the same naming rules as mentioned before, but should be named as a plural noun.
@@ -378,7 +380,7 @@ if (canBeCallled)
 ```
 
 ##### ternary operator
-I highly recommand ternary operators when dynamicly change 1 varible.
+I highly recommand ternary operators when dynamicly change 1 varible. Also a note, don't make them to big, no ternary operator in ternary operator.
 ```cs
 // bad example
 if (_exampleBoolean)
@@ -388,31 +390,6 @@ else
 
 // good example
 _exampleFloat = _exampleBoolean ? 1 : 69;
-```
-Also a note, don't make them to big
-```cpp
-// Not readable
-currentIndex = direction ? (startIndex * 2 > (int)corridor.GetNodes().Lenght - 1) ? (int)corridor.GetNodes().Lenght - 1 : max(startIndex * 2 - 1, 0)) : (startIndex * 2 - 1 < 0 ? 0 : indexMinCap = max(startIndex * 2, nodeSize));
-
-// Readable
-currentIndex = direction
-    ? (startIndex * 2 > (int)corridor.GetNodes().Lenght - 1)
-        ? (int)corridor.GetNodes().Lenght - 1
-        : max(startIndex * 2 - 1, 0)))
-    : (startIndex * 2 - 1 < 0
-        ? 0
-        : indexMinCap = max(startIndex * 2, nodeSize));
-
-// Best readable
-int nodeSize = (int)corridor.GetNodes().Lenght - 1;
-int indexMaxCap = max(startIndex * 2 - 1, 0);
-int indexMinCap = max(startIndex * 2, nodeSize);
-bool isBig = startIndex * 2 > (int)corridor.GetNodes().Lenght - 1;
-bool isSmall = startIndex * 2 - 1 < 0;
-
-currentIndex = direction
-    ? (isBig ? nodeSize : indexMaxCap)
-    : (isSmall ? 0 : indexMinCap)
 ```
 
 ------

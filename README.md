@@ -16,6 +16,10 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
     - [Ternary operator](#ternary-operator)
 - [Loops](#loops)
 - [Scriptable object](#scriptable-object)
+- [Styling](#styling)
+    - [Bracket Placement](#bracket-placement)
+    - [If statement and loop](#if-statement-and-loop)
+    - [Regions](#regions)
 
 ------
 ### Namespaces
@@ -397,6 +401,7 @@ _exampleFloat = _exampleBoolean ? 1 : 69;
 For better performance (even very small) we make the length it's own (local)varible.
 ```cs
 int listLength = _exampleList.Length;
+
 for (int i = 0; i < listLength; i++)
 {
 
@@ -433,5 +438,117 @@ public sealed class SongInfo : ScriptableObject
         [field: SerializeField, Range(0.05f, 1f)] public float Speed { get; private set; }
     }
     [field: SerializeField] public LyricNode[] Nodes { get; private set; }
+}
+```
+
+------
+### Styling
+Code style is a personal prefrrence. It is needed for a group project, so here is a style that we use.
+
+Want to look at a [class with code style](https://github.com/Team-Swamp/IceBites/blob/develop/Assets/Scripts/Framework/SceneSwitcher.cs)?
+
+#### Bracket placement
+A good usage of brackets:
+```cs
+namespace ExampleNamespace
+{
+    public class ExampleScript : MonoBehaviour
+    {
+        priavte void ExampleMethod()
+        {
+            
+        }
+    }
+}
+```
+A bad usage of brackets:
+```cs
+namespace ExampleNamespace{
+    public class ExampleScript : MonoBehaviour{
+        priavte void ExampleMethod(){
+            
+
+}       }
+
+
+}
+```
+
+#### If statement and loop
+Around an if and loop there needs to be an empty line above and below.
+```cs
+float exampleFloat;
+
+if (_exampleBoolean)
+    exampleFloat = 1;
+
+ExampleMethod(exampleFloat);
+```
+```cs
+int listLength = _exampleList.Length;
+
+for (int i = 0; i < listLength; i++)
+{
+    Debug.LogError($"Item {listLenght} is {_exampleList[listLength].name}.");
+}
+
+ExampleMethod();
+```
+
+#### Regions
+A region has a line between its content.
+```cs
+#region Private variables
+
+private int _targetAmount;
+private ExampleComponent _system;
+private ExampleStruct _currentStruct;
+
+#endregion
+```
+```cs
+#region Public functions
+
+public void ExampleMethod()
+{
+    Debug.Log("Example")
+}
+
+#endregion
+```
+
+#### Functions
+Have a line in between functions. This is how it should be done:
+```cs
+/// <summary>
+/// Function description.
+/// </summary>
+/// <param name="parameter">Parameter value to pass.</param>
+/// <returns>What the function return.</returns>
+public int ExampleFunction(string parameter)  
+{
+    Return 0;
+}
+
+private void ExampleFunction()  
+{
+    Debug.log("I am example!");
+}
+```
+Not like this:
+
+```cs
+/// <summary>
+/// Function description.
+/// </summary>
+/// <param name="parameter">Parameter value to pass.</param>
+/// <returns>What the function return.</returns>
+public int ExampleFunction(string parameter)  
+{
+    Return 0;
+}
+private void ExampleFunction()  
+{
+    Debug.log("I am example!");
 }
 ```

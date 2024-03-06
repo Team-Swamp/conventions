@@ -443,9 +443,9 @@ public sealed class SongInfo : ScriptableObject
 
 ------
 ### Styling
-Code style is a personal prefrrence. It is needed for a group project, so here is a style that we use.
+Code style is a personal preference. It is needed for a group project, so here is a style that we use.
 
-Want to look at a [class with code style](https://github.com/Team-Swamp/IceBites/blob/develop/Assets/Scripts/Framework/SceneSwitcher.cs)?
+Want to look at a [class with good code style](https://github.com/Team-Swamp/IceBites/blob/develop/Assets/Scripts/Framework/SceneSwitcher.cs)?
 
 #### Bracket placement
 A good usage of brackets:

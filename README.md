@@ -454,7 +454,7 @@ namespace ExampleNamespace
 {
     public class ExampleScript : MonoBehaviour
     {
-        priavte void ExampleMethod()
+        private void ExampleMethod()
         {
             
         }
@@ -465,7 +465,7 @@ A bad usage of brackets:
 ```cs
 namespace ExampleNamespace{
     public class ExampleScript : MonoBehaviour{
-        priavte void ExampleMethod(){
+        private void ExampleMethod(){
             
 
 }       }

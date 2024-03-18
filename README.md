@@ -6,6 +6,7 @@ Always try to make your code less [coupled](https://en.wikipedia.org/wiki/Coupli
 Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself#:~:text=%22Don't%20repeat%20yourself%22,data%20normalization%20to%20avoid%20redundancy.)
 
 - [Namespaces](#namespaces)
+    - [Importing namespaces](#importing-namespaces)
 - [Classes](#classes)
 - [Functions](#functions)
 - [Variables](#variables)
@@ -55,6 +56,20 @@ namespace ExampleNamespace
         
     }
 }
+```
+
+#### Importing namespaces
+When using namespaces we put the default namespaces first then a white space followed by our namespaces.
+
+```cs
+using System;
+using System.Collections;
+using UnityEngine;
+
+﻿using FrameWork;
+using FrameWork.Enums;
+using FrameWork.Extensions;
+using Player;
 ```
 
 ------

@@ -18,6 +18,7 @@ Also try to make your code [DRY (Dont Repeat Yourself)](https://en.wikipedia.org
 - [Loops](#loops)
 - [Scriptable object](#scriptable-object)
 - [Styling](#styling)
+    - [Namespaces](#namespaces-style)
     - [Bracket Placement](#bracket-placement)
     - [If statement and loop](#if-statement-and-loop)
     - [Regions](#regions)
@@ -274,6 +275,11 @@ internal int i_variableExample;
 protected int p_variableExample;
 ```
 
+**Internal & protected  variable** names always start with 'pi_' after which it is written in camelCasing.
+```cs
+protected internal int pi_variableExample;
+```
+
 **Temporary variables** inside of an function always need to be written out and are written in camelCasing.
 ```cs
 private void ExampleFunction()
@@ -348,6 +354,16 @@ enum ExampleEnum
 {
     FIRST_CONSTANT,
     SECOND_CONSTANT
+}
+```
+Always have the default type at the top.
+
+```cs
+enum CookedState
+{
+    NONE,
+    RAW,
+    COOKED
 }
 ```
 
@@ -462,6 +478,18 @@ Code style is a personal preference. It is needed for a group project, so here i
 
 Want to look at a [class with good code style](https://github.com/Team-Swamp/IceBites/blob/develop/Assets/Scripts/Framework/SceneSwitcher.cs)?
 
+#### Namespaces style
+There needs to be line between the namespaces in use and the current namespace.
+```cs
+using System;
+using System.Collections;
+using FrameWork.Extensions;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace Framework {}
+```
+
 #### Bracket placement
 A good usage of brackets:
 ```cs
@@ -471,7 +499,7 @@ namespace ExampleNamespace
     {
         private void ExampleMethod()
         {
-            
+
         }
     }
 }
@@ -481,7 +509,7 @@ A bad usage of brackets:
 namespace ExampleNamespace{
     public class ExampleScript : MonoBehaviour{
         private void ExampleMethod(){
-            
+
 
 }       }
 

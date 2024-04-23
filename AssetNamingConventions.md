@@ -1,6 +1,6 @@
 Everything is typed in English.
 
-Most things are prefixed with the prefix generally being an acronym of the asset type followed by an underscore.
+Most assets are prefixed with an acronym representing the asset type, followed by an underscore.
 
 `[AssetTypePrefix]_[AssetName]_[Descriptor]_[OptionalVariantLetterOrNumber]`
 
@@ -14,7 +14,7 @@ Most things are prefixed with the prefix generally being an acronym of the asset
 
 This list is not exhaustive, as new features can require new Asset types. If you are using an Asset type not listed, use the existing list as a guideline for your naming convention for that Asset.
 
-Examples based on the contentions in the table below:
+Examples based on the contents in the table below:
 
 * `M_Collectable`
 * `T_Collectable_Normal`
@@ -22,9 +22,9 @@ Examples based on the contentions in the table below:
 ------
 ### Base Asset Name
 All assets should have a _Base Asset Name_. A Base Asset Name represents a logical grouping of related assets. Any asset that is part of this logical group
-should follow the the standard of  `Prefix_BaseAssetName_Variant_Suffix`.
+should follow the standard of  `Prefix_BaseAssetName_Variant_Suffix`.
 
-Keeping the pattern `Prefix_BaseAssetName_Variant_Suffix` in mind and using common sense is generally enough to warrant good asset names. Here are some detailed rules regarding each element.
+Keeping the pattern `Prefix_BaseAssetName_Variant_Suffix` in mind and using common sense is generally enough to ensure good asset names. Here are some detailed rules regarding each element.
 
 `Prefix` and `Suffix` are to be determined by the asset type through the following [Asset Name Modifier](#asset-name-modifiers) tables.
 
@@ -32,9 +32,9 @@ Keeping the pattern `Prefix_BaseAssetName_Variant_Suffix` in mind and using comm
 
 For unique and specific variations of assets, `Variant` is either a short and easily recognizable name that represents logical grouping of assets that are a subset of an asset's base name. For example, if Calvin had multiple skins these skins should still use `Calvin` as the `BaseAssetName` but include a recognizable `Variant`. An 'Evil' skin would be referred to as `Calvin_Evil` and a 'Retro' skin would be referred to as `Calvin_Retro`.
 
-For unique but generic variations of assets, `Variant` is a two digit number starting at `01`. For example, if you have an environment artist generating nondescript rocks, they would be named `Rock_01`, `Rock_02`, `Rock_03`, etc. Except for rare exceptions, you should never require a three digit variant number. If you have more than 100 assets, you should consider organizing them with different base names or using multiple variant names.
+For unique but generic variations of assets, `Variant` is a two digit number starting at `01`. For example, if you have an environment artist generating nondescript rocks, they would be named `Rock_01`, `Rock_02`, `Rock_03`, etc. Except for rare exceptions, you should never require a three-digit variant number. If you have more than 100 assets, you should consider organizing them with different base names or using multiple variant names.
 
-Depending on how your asset variants are made, you can chain together variant names. For example, if you are creating flooring assets for an Arch Viz project you should use the base name `Flooring` with chained variants such as `Flooring_Marble_01`, `Flooring_Maple_01`, `Flooring_Tile_Squares_01`.
+Depending on how your asset variants are made, you can chain variant names together. For example, if you are creating flooring assets for an Arch Viz project you should use the base name `Flooring` with chained variants such as `Flooring_Marble_01`, `Flooring_Maple_01`, `Flooring_Tile_Squares_01`.
 
 #### Examples
 
@@ -46,7 +46,7 @@ Depending on how your asset variants are made, you can chain together variant na
 | Material                 | M_Calvin        |
 | Texture (Diffuse/Albedo) | T_Calvin_D      |
 | Texture (Normal)         | T_Calvin_N      |
-| Texture (Evil Diffuse)   | T_Calvin_Evil_D |
+| Texture (Evil_Diffuse)   | T_Calvin_Evil_D |
 
 ##### Prop
 
@@ -63,7 +63,7 @@ Depending on how your asset variants are made, you can chain together variant na
 
 When naming an asset use these tables to determine the prefix and suffix to use with an asset's [Base Asset Name](#base-asset-name).
 
-- [Most Common](#most-common)
+- [Most Common Prefixes and Suffixes](#most-common-prefixes-and-suffixes)
   - [FBX](#3d-models-fbx-files)
   - [3ds](#3d-models-3ds-max-files)
 - [Animations](#animations)
@@ -78,7 +78,7 @@ When naming an asset use these tables to determine the prefix and suffix to use 
 - [User Interface](#user-interface)
 - [Effects](#effects)
 
-#### Most Common
+#### Most Common Prefixes and Suffixes
 
 | Asset Type              | Prefix     | Suffix     | Notes                                                                                     |
 | ----------------------- | ---------- | ---------- |-------------------------------------------------------------------------------------------|
@@ -111,7 +111,7 @@ PascalCase
 
 #### 3D Models 3ds Max Files
 
-All meshes in 3ds Max are lowercase to differentiate them from their FBX export.
+All meshes in 3ds Max are lowercase to differentiate them from their FBX exports.
 
 | Asset Type    | Prefix | Suffix      | Notes                                   |
 | ------------- | ------ | ----------- | --------------------------------------- |
@@ -204,7 +204,7 @@ Packing 4 channels of data into a texture (RGBA) is not recommended except for a
 | Audio Clip     | A_     |        |                                                              |
 | Audio Mixer    | MIX_   |        |                                                              |
 | Dialogue Voice | DV_    |        |                                                              |
-| Audio Class    |        |        | No prefix/suffix. Should be put in a folder called AudioClasses |
+| Audio Class    |        |        | No prefix or suffix. Should be put in a folder called AudioClasses |
 
 #### User Interface
 | Asset Type       | Prefix | Suffix | Notes |
